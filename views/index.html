@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/index.css" rel="stylesheet">
+    <title>Risisinge-Notifer</title>
+</head>
+<body>
+    <h1 id="welcome">Welcome in the Risisinge Notifier !</h1>
+    <input id="tokenField" placeholder="discord token here">
+    <input type="submit" value="Update token" id="tokenBtn" onclick="token()">
+</body>
+<script>
+    const fs        = require("fs")
+    const settings  = require("../settings.json")
+    const discord   = require("../discord.js")
+
+    function token() {
+        const newToken = document.getElementById("tokenField")
+        if (!newToken.value) return;
+        //else:
+
+        settings["discord-token"] = newToken.value
+        fs.writeFile('./settings.json', JSON.stringify(settings, null, 2), (err) => {
+            if (err) console.log(err)
+        })
+        discord.start()
+    }
+</script>
+</html>
