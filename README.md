@@ -1,5 +1,5 @@
 # risisinge-notifer
-Soyez notifié grâce un saint Risisinge
+Soyez notifié grâce au saint Risisinge
 
 **Informations**
 
