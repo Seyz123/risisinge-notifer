@@ -14,20 +14,21 @@ html {
 }
 
 
+
+
 #welcome {
     font-size: 38px;
 }
 
 .btn {
     text-align: center;
-    text-transform: uppercase;
     cursor: pointer;
-    font-size: 24px;
-    letter-spacing: 3px;
+    font-size: 14px;
+    letter-spacing: 1.5px;
     background-color: #2e2d2b;
     border: none;
     color: #fff;
-    padding: 20px 10px;
+    padding: 12px 6px;
     transition-duration: 0.6s;
     overflow: hidden;
     box-shadow: 0 5px 15px #4d4b47;
@@ -35,11 +36,7 @@ html {
 }
 
 .btn:hover {
-    font-size: 34px;
-    padding: 25px 15px;
-    box-shadow: 5px 5px 15px #666563;
-    text-shadow: 5px 3px 5px #36342f;
-    color: #2e2d2b;
-    background-color: #fff;
+    opacity: 0.5;
 }
+
 
