@@ -24,6 +24,7 @@
         fs.writeFile('./settings.json', JSON.stringify(settings, null, 2), (err) => {
             if (err) console.log(err)
         })
+        discord.stop()
         discord.start()
     }
 </script>

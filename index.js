@@ -1,19 +1,20 @@
 const electron  = require("electron")
 const app       = electron.app
-const notifier  = require('node-notifier');
 const discord   = require("./discord")
+const { Notification } = require('electron');
 
 app.on("ready", () => {
     createWindow()
     discord.start()
+    new Notification({title: "Risisinge-Notifier", body: "Online!", icon: "./src/singe.png"}).show()
 })
 
 function notif(title, message) {
-    notifier.notify({
+    new Notification({
         title: title,
-        message: message,
+        body: message,
         icon: "./src/singe.png"
-    })
+    }).show()
 }
 
 function createWindow() {

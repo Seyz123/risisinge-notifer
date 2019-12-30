@@ -2,9 +2,10 @@ const Discord = require("discord.js")
 const client = new Discord.Client()
 const settings = require("./settings")
 const index = require("./index.js")
+
 function start() {
     client.on("ready", () =>{
-        console.log("Connected to discord")
+        console.log("Connected (discord)")
     })
     client.on("message", async (message) => {
         if (message.author.id == client.user.id) return;
@@ -17,4 +18,10 @@ function start() {
     client.login(settings["discord-token"])
 }
 
+function stop() {
+    console.log("Disconnected (discord)")
+    client.destroy()
+}
+
 module.exports.start = start
+module.exports.stop = stop
