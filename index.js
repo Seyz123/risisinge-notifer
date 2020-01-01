@@ -1,20 +1,20 @@
-const electron  = require("electron")
-const app       = electron.app
-const discord   = require("./discord")
-const { Notification } = require('electron');
+const electron  = require("electron"),
+    app = electron.app,
+    discord   = require("./discord"),
+    { Notification } = require('electron');
 
 app.on("ready", () => {
-    createWindow()
-    discord.start()
-    new Notification({title: "Risisinge-Notifier", body: "Online!", icon: "./src/singe.png"}).show()
-})
+    createWindow();
+    discord.start();
+    new Notification({title: "Risisinge-Notifier", body: "Online!", icon: "./src/singe.png"}).show();
+});
 
 function notif(title, message) {
     new Notification({
         title: title,
         body: message,
         icon: "./src/singe.png"
-    }).show()
+    }).show();
 }
 
 function createWindow() {
@@ -25,10 +25,10 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true
         }
-    })
+    });
 
-    win.setMenu(null)
-    win.loadFile("./views/index.html")
+    win.setMenu(null);
+    win.loadFile("./views/index.html");
 }
 
-module.exports.notif = notif
+module.exports.notif = notif;

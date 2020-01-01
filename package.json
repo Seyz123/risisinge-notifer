@@ -5,13 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "discord.js": "^11.5.1",
+    "node-notifier": "^6.0.0"
+  },
+  "devDependencies": {
     "electron": "^7.1.7",
     "electron-packager": "^14.1.1",
-    "electron-winstaller": "^4.0.0",
-    "node-notifier": "^6.0.0",
-    "path": "^0.12.7"
+    "electron-winstaller": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",

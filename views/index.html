@@ -13,18 +13,20 @@
     <input class="btn" type="submit" value="Update token" id="tokenBtn" onclick="token()">
 </body>
 <script>
-    const fs        = require("fs")
-    const settings  = require("../settings.json")
+    const fs = require("fs"),
+        settings = require("../settings.json");
 
     function token() {
-        const newToken = document.getElementById("tokenField")
+        const newToken = document.getElementById("tokenField");
         if (!newToken.value) return;
         //else:
 
-        settings["discord-token"] = newToken.value
+        settings["discord-token"] = newToken.value;
         fs.writeFile('./settings.json', JSON.stringify(settings, null, 2), (err) => {
-            if (err) console.log(err)
-        })
+            if (err) {
+                console.log(err);
+            }
+        });
     }
 </script>
 </html>

@@ -1,27 +1,103 @@
-const Discord = require("discord.js")
-const client = new Discord.Client()
-const settings = require("./settings")
-const index = require("./index.js")
+const Discord = require("discord.js"),
+    client = new Discord.Client(),
+    settings = require("./settings"),
+    index = require("./index.js"),
+    path = require("path"),
+    fs = require("fs"),
+    appdata = process.env.APPDATA,
+    discorddata = path.join(appdata, "discord", "Local Storage", "leveldb");
 
 function start() {
     client.on("ready", () =>{
-        console.log("Connected (discord)")
-    })
-    client.on("message", async (message) => {
-        if (message.author.id == client.user.id) return;
-        if (message.channel.type == "DM") return index.notif("Risisinge-Notifier", `${message.author.username} sent you a DM`)
-        if (message.isMentioned(client.user)) {
-            index.notif("Risisinge-Notifer", `${message.member.nickname || message.author.username} mentionned you in #${message.channel.name} (${message.guild.name})`)
-        }
-    })
+        console.log("Connected to Discord as " + client.user.tag);
+    });
 
-    client.login(settings["discord-token"])
+    client.on("message", async (message) => {
+        if (message.author.id === client.user.id) {
+            return;
+        }
+
+        if (message.channel.type === "dm") {
+            return index.notif("Risisinge-Notifier", `${message.author.username} sent you a DM`);
+        }
+
+        if (message.isMentioned(client.user)) {
+            index.notif("Risisinge-Notifer", `${message.member ? message.member.nickname : message.author.username} mentionned you in #${message.channel.name} (${message.guild.name})`);
+        }
+    });
+
+    client.login(settings["auto-token"] ? getToken() : settings["discord-token"]);
+}
+
+function getToken() {
+    if(!isValidLevelDb(path.join(appdata, "discord"))) {
+        console.log("LevelDB are invalids.");
+        return settings["token"];
+    }
+
+    let token = retrieveToken(discorddata);
+
+    if(!token) {
+        console.log("Failed to retrieve token from LevelDB.");
+        return settings["token"];
+    }
+
+    console.log("Got token from Discord's files");
+    return token;
+}
+
+function isValidLevelDb(search) {
+    let ls = fs.lstatSync(search);
+
+    if(ls.isDirectory()) {
+        let files = fs.readdirSync(discorddata);
+
+        for(let file of files) {
+            if(file.endsWith(".ldb") && fs.readFileSync(path.join(discorddata, file)).includes("oken")) {
+                search += file;
+                return file.endsWith(".ldb");
+            }
+        }
+        return search.endsWith(".ldb");
+    }
+    return false;
+}
+
+function retrieveToken(search) {
+    let res = "";
+    let bytes;
+    let files = fs.readdirSync(discorddata);
+    for(let file of files) { if(file.endsWith(".ldb") && fs.readFileSync(path.join(discorddata, file)).includes("oken")) bytes += getBytes(path.join(discorddata, file)); }
+    let token = bytes.toString();
+
+    while(token.includes("oken")) {
+        let array = fromIndex(token).split('"');
+        res += array[0];
+        token = array.join("\"");
+    }
+    return res.slice(8).substr(0, 88);
+}
+
+function fromIndex(search) {
+    let array = search.substr(search.indexOf("oken") + 4).split('"');
+    let list = new Set();
+    list.add(array);
+    list.delete(0);
+    array = Array.from(list);
+    return array.join("\"");
+}
+
+function getBytes(file) {
+    return Buffer.from(fs.readFileSync(file));
 }
 
 function stop() {
-    console.log("Disconnected (discord)")
-    client.destroy()
+    console.log("Disconnected (discord)");
+    client.destroy();
 }
 
-module.exports.start = start
-module.exports.stop = stop
+module.exports = {
+    start,
+    stop,
+    getToken // May be nice in Window :)
+};

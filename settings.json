@@ -1,3 +1,4 @@
 {
-  "discord-token": "your discord token"
+  "discord-token": "your discord token",
+  "auto-token": true
 }
