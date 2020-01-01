@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 const client = new Discord.Client()
-const settings = require("../settings")
+const settings = require("../settings.json")
 const index = require("../index.js")
 
 function start() {

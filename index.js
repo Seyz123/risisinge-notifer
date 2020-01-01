@@ -1,6 +1,6 @@
 const electron  = require("electron")
 const app       = electron.app
-const discord   = require("./JS/discord")
+const discord   = require("./JS/discord.js")
 const { Notification } = require('electron');
 
 app.on("ready", () => {
