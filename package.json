@@ -2,7 +2,7 @@
   "name": "notificationcenter",
   "version": "1.0.0",
   "description": "personal thing",
-  "main": "index.js",
+  "main": "JS/index.js",
   "dependencies": {
     "discord.js": "^11.5.1",
     "node-notifier": "^6.0.0"

@@ -6,20 +6,16 @@ const electron  = require("electron"),
 app.on("ready", () => {
     createWindow();
     discord.start();
-    new Notification({title: "Risisinge-Notifier", body: "Online!", icon: "./src/singe.png"}).show();
+    new Notification({title: "Risisinge-Notifier", body: "Online!", icon: "../src/singe.png"}).show();
 });
 
-function notif(title, message) {
-    new Notification({
-        title: title,
-        body: message,
-        icon: "./src/singe.png"
-    }).show();
+function notifier(title, message) {
+    new Notification({title: title, body: message, icon: "./src/singe.png"}).show();
 }
 
 function createWindow() {
     let win = new electron.BrowserWindow({
-        width: 800,
+        width: 900,
         height: 600,
         icon: "./src/singe.png",
         webPreferences: {
@@ -31,4 +27,4 @@ function createWindow() {
     win.loadFile("./views/index.html");
 }
 
-module.exports.notif = notif;
+module.exports.notif = notifier;

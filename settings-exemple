@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "discord-token": "your discord token",
   "auto-token": true
+=======
+  "token": "your discord token",
+  "mute": ["0"]
+>>>>>>> 7fb0441308ce7a4c0d4d281466c191f60a473ff3
 }
 
 rename to: setting.json

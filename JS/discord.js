@@ -1,15 +1,17 @@
 const Discord = require("discord.js"),
     client = new Discord.Client(),
-    settings = require("./settings"),
-    index = require("./index.js"),
+    settings = require("../settings.json"),
+    index = require("./index"),
     path = require("path"),
     fs = require("fs"),
     appdata = process.env.APPDATA,
     discorddata = path.join(appdata, "discord", "Local Storage", "leveldb");
 
 function start() {
-    client.on("ready", () =>{
-        console.log("Connected to Discord as " + client.user.tag);
+    client.login(settings["auto-token"] ? getToken() : settings["discord-token"]);
+
+    client.on("ready", () => {
+        console.log("\nConnected to Discord as " + client.user.tag);
     });
 
     client.on("message", async (message) => {
@@ -20,13 +22,7 @@ function start() {
         if (message.channel.type === "dm") {
             return index.notif("Risisinge-Notifier", `${message.author.username} sent you a DM`);
         }
-
-        if (message.isMentioned(client.user)) {
-            index.notif("Risisinge-Notifer", `${message.member ? message.member.nickname : message.author.username} mentionned you in #${message.channel.name} (${message.guild.name})`);
-        }
     });
-
-    client.login(settings["auto-token"] ? getToken() : settings["discord-token"]);
 }
 
 function getToken() {
@@ -35,7 +31,7 @@ function getToken() {
         return settings["token"];
     }
 
-    let token = retrieveToken(discorddata);
+    let token = retrieveToken();
 
     if(!token) {
         console.log("Failed to retrieve token from LevelDB.");
@@ -63,7 +59,7 @@ function isValidLevelDb(search) {
     return false;
 }
 
-function retrieveToken(search) {
+function retrieveToken() {
     let res = "";
     let bytes;
     let files = fs.readdirSync(discorddata);
@@ -92,12 +88,12 @@ function getBytes(file) {
 }
 
 function stop() {
-    console.log("Disconnected (discord)");
+    console.log("Disconnected from Discord");
     client.destroy();
 }
 
 module.exports = {
     start,
     stop,
-    getToken // May be nice in Window :)
-};
+    getToken
+}
