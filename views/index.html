@@ -6,6 +6,7 @@
     <title>Risisinge-Notifer</title>
 </head>
 <body>
+<<<<<<< HEAD
     <h1 id="welcome">Risisinge Notifier<a href="https://diogolo.space" id="by"> by Diogolo</a></h1>
     <p class="x">Discord token :</p>
     <input class="field" id="tokenField" placeholder="discord token">
@@ -21,11 +22,21 @@
     <input class="field" id="unmuteField" placeholder="Guild ID">
     <input class="btn" type="submit" value="Update" id="unmuteBtn" onclick="set('unmute', false)">
 
+=======
+    <h1 id="welcome">Welcome in the Risisinge Notifier !</h1>
+    <input id="tokenField" placeholder="discord token here">
+    <br/>
+    <br/>
+    <input class="btn" type="submit" value="Update token" id="tokenBtn" onclick="token()">
+>>>>>>> 27a4ba8369c0d52bc20883e1dab59240c277c2e2
 </body>
 <script>
     const fs        = require("fs")
     const settings  = require("../settings.json")
+<<<<<<< HEAD
     const discord   = require("../JS/discord.js")
+=======
+>>>>>>> 27a4ba8369c0d52bc20883e1dab59240c277c2e2
 
     function set(type) {
         const value = document.getElementById(type+"Field").value
@@ -50,6 +61,7 @@
         fs.writeFile('./settings.json', JSON.stringify(settings, "", 2), (err) => {
             if (err) console.log(err)
         })
+<<<<<<< HEAD
     }
 
     function  htmlNotif(msg, type) {
@@ -66,6 +78,8 @@
         while(elements.length > 0){
             elements[0].parentNode.removeChild(elements[0]);
         }
+=======
+>>>>>>> 27a4ba8369c0d52bc20883e1dab59240c277c2e2
     }
 </script>
 </html>
