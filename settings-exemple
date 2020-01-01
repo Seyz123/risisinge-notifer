@@ -1,5 +1,5 @@
 {
-  "discord-token": "your discord token",
+  "token": "your discord token",
   "mute": ["0"]
 }
 
