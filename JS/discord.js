@@ -22,6 +22,10 @@ function start() {
         if (message.channel.type === "dm") {
             return index.notif("Risisinge-Notifier", `${message.author.username} sent you a DM`);
         }
+
+        if (message.isMentioned(client.user)) {
+            index.notif("Risisinge-Notifer", `${message.member ? message.member.nickname : message.author.username} mentionned you in #${message.channel.name} (${message.guild.name})`);
+        }
     });
 }
 
