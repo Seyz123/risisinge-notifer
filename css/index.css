@@ -3,10 +3,25 @@ body {
     width: 99%;
     background-color: #3d3c39;
     overflow: hidden;
-    color: white;
+    color: whitesmoke;
     text-align: center;
     font-family: 'Oswald', Asap, sans-serif;
 }
+
+a:link {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+a {
+    transition-duration: 0.5s;
+}
+
+a:hover {
+    color: #252527;
+    text-decoration: underline;
+}
+
 
 html {
     height: 99%;
@@ -16,30 +31,64 @@ html {
 
 #welcome {
     font-size: 38px;
+    padding-bottom: 10px;
+    border-bottom: 5px solid whitesmoke;
+    transition-duration: 0.7s;
 }
 
+#by {
+    font-size: 10px;
+}
+
+.warn {
+    background: orangered;
+    padding: 14px 40px;
+    text-align: center;
+    position: absolute;
+    left: 10px;
+    border-radius: 4px;
+    bottom: 10px;
+}
+
+.notif {
+    background: green;
+    padding: 14px 40px;
+    text-align: center;
+    position: absolute;
+    left: 10px;
+    border-radius: 4px;
+    bottom: 10px;
+}
+
+.field {
+    padding: 14px 10px;
+    text-align: center;
+    border: 3px solid #363638;
+    font-size: 12px;
+    color: #363638;
+    text-transform: uppercase;
+    border-radius: 6px;
+    transition-duration: 0.8s;
+}
 .btn {
     text-align: center;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-size: 24px;
-    letter-spacing: 3px;
-    background-color: #2e2d2b;
-    border: none;
-    color: #fff;
-    padding: 20px 10px;
-    transition-duration: 0.6s;
-    overflow: hidden;
-    box-shadow: 0 5px 15px #4d4b47;
-    border-radius: 5px;
+    font-size: 14px;
+    background: #252527;
+    color: whitesmoke;
+    padding: 10px 8px;
+    border: 2px solid #363638;
+    border-radius: 6px;
+    transition-duration: 0.5s;
+}
+
+.x {
+    position: absolute;
+    padding-left: 5px;
+    padding-right: 5px;
+    left: 23%;
+    font-size: 16px;
 }
 
 .btn:hover {
-    font-size: 34px;
-    padding: 25px 15px;
-    box-shadow: 5px 5px 15px #666563;
-    text-shadow: 5px 3px 5px #36342f;
-    color: #2e2d2b;
-    background-color: #fff;
+    opacity: 0.5;
 }
-

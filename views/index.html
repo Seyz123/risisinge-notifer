@@ -6,26 +6,66 @@
     <title>Risisinge-Notifer</title>
 </head>
 <body>
-    <h1 id="welcome">Welcome in the Risisinge Notifier !</h1>
-    <input id="tokenField" placeholder="discord token here">
-    <input type="submit" value="Update token" id="tokenBtn" onclick="token()">
+    <h1 id="welcome">Risisinge Notifier<a href="https://diogolo.space" id="by"> by Diogolo</a></h1>
+    <p class="x">Discord token :</p>
+    <input class="field" id="tokenField" placeholder="discord token">
+    <input class="btn" type="submit" value="Update" id="tokenBtn" onclick="set('token', false)">
+    <br/>
+    <br/>
+    <p class="x">Mute guild :</p>
+    <input class="field" id="muteField" placeholder="Guild ID">
+    <input class="btn" type="submit" value="Update" id="muteBtn" onclick="set('mute', true)">
+    <br/>
+    <br/>
+    <p class="x">Unmute guild :</p>
+    <input class="field" id="unmuteField" placeholder="Guild ID">
+    <input class="btn" type="submit" value="Update" id="unmuteBtn" onclick="set('unmute', false)">
+
 </body>
 <script>
     const fs        = require("fs")
     const settings  = require("../settings.json")
-    const discord   = require("../discord.js")
+    const discord   = require("../JS/discord.js")
 
-    function token() {
-        const newToken = document.getElementById("tokenField")
-        if (!newToken.value) return;
+    function set(type) {
+        const value = document.getElementById(type+"Field").value
+        if (!value) return htmlNotif(`Invalid value for ${type}-field`, 'warn')
         //else:
 
-        settings["discord-token"] = newToken.value
-        fs.writeFile('./settings.json', JSON.stringify(settings, null, 2), (err) => {
+        switch (type) {
+            case "unmute":
+                if (!settings["mute"].includes(value)) return  htmlNotif("This guild isn't muted", "warn")
+                delete settings["mute"][settings["mute"].indexOf(value)]
+                htmlNotif(`"${value}" is now unmuted`, "notif")
+                break;
+            case "mute":
+                settings[type].push(value)
+                htmlNotif(`"${value}" is now muted`, "notif")
+                break;
+            default:
+                settings[type] = value
+                htmlNotif(`${type} edited !`, 'notif')
+                break;
+        }
+        fs.writeFile('./settings.json', JSON.stringify(settings, "", 2), (err) => {
             if (err) console.log(err)
         })
-        discord.stop()
-        discord.start()
+    }
+
+    function  htmlNotif(msg, type) {
+        removeByClass("notif");removeByClass("warn") //prevent multiples notifications
+
+        document.body.innerHTML += `<div class='${type}'>${type == "warn" ? "⚠️ |" : "✅ |"} ${msg}</div>`
+        setTimeout(() => {
+            removeByClass(type)
+        }, 3000)
+    }
+
+    function removeByClass(className){
+        var elements = document.getElementsByClassName(className);
+        while(elements.length > 0){
+            elements[0].parentNode.removeChild(elements[0]);
+        }
     }
 </script>
 </html>
